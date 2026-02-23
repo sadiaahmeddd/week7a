@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/convert_patch.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,6 +28,21 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   // TODO: We'll build our async function here in class!
+  
+
+  Future<void> dotheThing() async(){
+  print("function called");
+  string url = 'https://dummyjson.com/carts';
+  var response = await http.get( Uri.parse(url));
+  if(response.statusCode == 200){
+    var jsonResponse = JsonDecoder(response.body);
+    print(response);
+  }
+   print("Error ${response.statusCode}");
+  
+
+  }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +52,18 @@ class _MainPageState extends State<MainPage> {
           spacing: 20,
           children: [
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // TODO: We'll make this async and call our function
+                doTheThing();
                 print("Button pressed!");
               },
               child: Text("Get Some Data"),
             ),
-            Container(
-              height: 300,
-              width: double.infinity,
-              color: Colors.blueGrey,
-              // In class we'll swap this Container for an Expanded widget
-              // and see why that's better than hardcoding a height
+            Expanded(
+              child: Container(
+                // In class we'll swap this Container for an Expanded widget
+                // and see why that's better than hardcoding a height
+              ),
             ),
           ],
         ),
